@@ -6,26 +6,40 @@ var Engine = Matter.Engine,
 
 var engine;
 var world;
-var box1;
+var boxes = [];
+
+var ground;
 
 
 function setup() {
-  createCanvas(600, 400);
+  createCanvas(400, 400);
 
   // create an engine
   engine = Engine.create();
-
   world = engine.world;
-
   Engine.run(engine);
+  var options = {
+    isStatic: true
+  };
+  ground = Bodies.rectangle(200, height - 50, width, 100, options);
+  World.add(world, ground);
 
-  // create two boxes and a ground
-  box1 = new Box(200, 100, 50, 50);
+  console.log(width);
+}
 
+function mousePressed() {
+  boxes.push(new Box(mouseX, mouseY, random(10, 40), random(10, 40)));
 }
 
 function draw() {
   background(51);
 
-  box1.show();
+  for(var x = 0; x < boxes.length; x = x + 1){
+    boxes[x].show();
+  }
+
+  noStroke(255);
+  fill(170);
+  rectMode(CENTER);
+  rect(ground.position.x, ground.position.y, width, 100);
 }

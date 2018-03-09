@@ -1,5 +1,9 @@
 function Box(x, y, w, h){
-  this.body = Bodies.rectangle(x, y, w, h);
+  var options = {
+    friction: 0.3,
+    restitution: 0.6
+  }
+  this.body = Bodies.rectangle(x, y, w, h, options);
   this.w = w;
   this.h = h;
   World.add(world, this.body);
@@ -9,7 +13,12 @@ function Box(x, y, w, h){
     var angle = this.body.angle;
     push();
     translate(pos.x, pos.y);
-    rect(0, 0, w, h);
+    rotate(angle);
+    rectMode(CENTER);
+    strokeWeight(1);
+    stroke(255);
+    fill(157);
+    rect(0, 0, this.w, this.h);
     pop();
 
   }
